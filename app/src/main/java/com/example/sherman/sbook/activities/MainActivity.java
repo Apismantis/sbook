@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
-import com.example.sherman.sbook.fragments.BookCategoryFragment;
+import com.example.sherman.sbook.fragments.HomeFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BookCategoryFragment(), "ONE");
-        adapter.addFragment(new BookCategoryFragment(), "TWO");
-        adapter.addFragment(new BookCategoryFragment(), "THREE");
+        adapter.addFragment(new HomeFragment(), "ONE");
+        adapter.addFragment(new HomeFragment(), "TWO");
+        adapter.addFragment(new HomeFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
 
