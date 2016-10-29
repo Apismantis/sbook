@@ -8,16 +8,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
+import com.example.sherman.sbook.activities.MainActivity;
 import com.example.sherman.sbook.adapters.BookRecyclerViewAdapter;
 import com.example.sherman.sbook.adapters.RecycleViewDecoration;
 import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.constants.Database;
+import com.example.sherman.sbook.helper.NormalizeTextHelper;
 import com.example.sherman.sbook.models.Book;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
 public class SearchFragment extends Fragment {
     private Context mContext;
     private View rootLayout;
@@ -36,6 +45,8 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
     private BookRecyclerViewAdapter rcAdapter;
     public ProgressDialog progressDialog;
+
+    private AutoCompleteTextView atcBookTitle;
 
     private final String TAG = "HomeFragment";
 
@@ -64,6 +75,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mContext = getActivity();
         rootLayout = inflater.inflate(R.layout.home_fragment, container, false);
+        atcBookTitle = ((MainActivity) getActivity()).atcBookTitle;
         return rootLayout;
     }
 
@@ -109,6 +121,58 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // Set search listener
+        setSearchListener();
+    }
+
+    private void setSearchListener() {
+        // Add listener for atc
+        atcBookTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String BookTitle = (String) adapterView.getItemAtPosition(i);
+                Log.d(TAG, "Title: " + BookTitle);
+                List<Book> SearchResult = new ArrayList<Book>();
+
+                for (Book book : Books) {
+                    String title = book.getTitle();
+                    float ratio = FuzzySearch.ratio(
+                            NormalizeTextHelper.normalizeBookTitle(BookTitle),
+                            NormalizeTextHelper.normalizeBookTitle(title));
+
+                    if (ratio == 100)
+                        SearchResult.add(0, book);
+                    else if (ratio > 50)
+                        SearchResult.add(book);
+                }
+
+                Log.d(TAG, "Search result size: " + SearchResult.size());
+//                rcAdapter = new BookRecyclerViewAdapter(mContext, SearchResult);
+//                recyclerView.setAdapter(rcAdapter);
+//                recyclerView.invalidate();
+                rcAdapter.changeData(SearchResult);
+            }
+        });
+
+        atcBookTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    rcAdapter.changeData(Books);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });

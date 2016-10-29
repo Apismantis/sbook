@@ -39,6 +39,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -111,11 +113,11 @@ public class AddBookActivity extends Activity {
         });
 
         //class members
-        String businessType[] = { "Truyện ngôn tình", "Trinh thám", "Computers", "Education",
-                "Tiểu thuyết", "Travel" };
+        String businessType[] = { "Khoa học giả tưởng", "Sách giáo khoa", "Kinh doanh", "Chính trị",
+                "Truyện tranh", "Đời sống", "Y tế", "Ngôn tình", "Địa lý", "Lịch sử"};
 
         adapterSpiner = new ArrayAdapter<String>(this,
-                android.R.layout.select_dialog_singlechoice, businessType);
+                android.R.layout.simple_spinner_dropdown_item, businessType);
 
         spiner.setAdapter(adapterSpiner);
 
@@ -162,9 +164,9 @@ public class AddBookActivity extends Activity {
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
                         //this method will be running on UI thread
-                        Book newBook = new Book(title, url, author, txtTags, publisher, inter, owner);
-                        database.child("books").push().setValue(newBook);
-                        //pdLoading.dismiss();
+                        String key = database.push().getKey();
+                        Book newBook = new Book(key, title, url, author, txtTags, publisher, inter, owner);
+                        database.child("books").child(key).setValue(newBook);
                         previewFirebaseImage(pdLoading);
                     }
 
@@ -261,7 +263,7 @@ public class AddBookActivity extends Activity {
 
     private String getOwner(){
         Random randomGenerator = new Random();
-        int randomNum = randomGenerator.nextInt(2) + 1;
+        int randomNum = randomGenerator.nextInt(2);
         final ArrayList<String> list = new ArrayList<String>();
         list.add("01vKuHSGJTV4Lx9sswhuWc30BC12");
         list.add("NDJah5ROVaRkrunxSQDaEX7h7Ph2");
