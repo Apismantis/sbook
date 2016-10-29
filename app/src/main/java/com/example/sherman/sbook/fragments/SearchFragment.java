@@ -151,9 +151,6 @@ public class SearchFragment extends Fragment {
                 }
 
                 Log.d(TAG, "Search result size: " + SearchResult.size());
-//                rcAdapter = new BookRecyclerViewAdapter(mContext, SearchResult);
-//                recyclerView.setAdapter(rcAdapter);
-//                recyclerView.invalidate();
                 rcAdapter.changeData(SearchResult);
             }
         });
