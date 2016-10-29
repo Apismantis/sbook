@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sherman.sbook" >
+    package="com.example.sherman.sbook">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,27 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:largeHeap="true">
-
-        <activity android:name=".activities.SplashActivity"
-                  android:theme="@style/SplashTheme">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-
-        <activity android:name=".activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".activities.MainActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:theme="@style/AppTheme.FullScreen" />
         <activity android:name=".activities.BookDetailActivity" />
-
     </application>
 
 </manifest>
