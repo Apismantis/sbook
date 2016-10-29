@@ -9,4 +9,5 @@
     <dimen name="h2">18sp</dimen>
     <dimen name="padding_title">5dp</dimen>
     <dimen name="padding_detail">12dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

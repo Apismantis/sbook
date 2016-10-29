@@ -6,14 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
-import com.example.sherman.sbook.activities.MainActivity;
 import com.example.sherman.sbook.adapters.BookRecyclerViewAdapter;
 import com.example.sherman.sbook.models.Book;
 
@@ -24,28 +21,18 @@ import java.util.List;
  * Created by Sherman on 10/29/2016.
  */
 
-public class BookCategoryFragment  extends Fragment {
-    private static final String TAB_POSITION = "tab_position";
+public class HomeFragment extends Fragment {
     private Context mContext;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
+    public HomeFragment() {
 
-    public BookCategoryFragment() {
-
-    }
-
-    public static BookCategoryFragment newInstance(int tabPosition) {
-        BookCategoryFragment fragment = new BookCategoryFragment();
-        Bundle args = new Bundle();
-        args.putInt(TAB_POSITION, tabPosition);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mContext = getActivity();
-        View v = inflater.inflate(R.layout.category_fragment, container, false);
+        View v = inflater.inflate(R.layout.home_fragment, container, false);
 
         RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

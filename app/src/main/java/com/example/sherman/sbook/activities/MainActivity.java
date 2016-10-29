@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
-import com.example.sherman.sbook.fragments.BookCategoryFragment;
+import com.example.sherman.sbook.fragments.CategoryFragment;
+import com.example.sherman.sbook.fragments.HomeFragment;
+import com.example.sherman.sbook.fragments.NotificationFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -39,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BookCategoryFragment(), "ONE");
-        adapter.addFragment(new BookCategoryFragment(), "TWO");
-        adapter.addFragment(new BookCategoryFragment(), "THREE");
+        adapter.addFragment(new HomeFragment(), "ONE");
+        adapter.addFragment(new CategoryFragment(), "TWO");
+        adapter.addFragment(new NotificationFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
 
@@ -56,19 +58,6 @@ public class MainActivity extends AppCompatActivity {
         btnSearch = (ImageButton) findViewById(R.id.btnSearch);
 
         tvAcitivityTitle = (TextView) findViewById(R.id.tvActivityTitle);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        Toast.makeText(this, "ádasdasdasdasdasdasdasdasdasd", Toast.LENGTH_SHORT).show();
-        return super.onOptionsItemSelected(item);
     }
 
     private void initImageLoader() {
