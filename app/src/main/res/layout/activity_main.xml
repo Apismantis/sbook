@@ -51,12 +51,36 @@
                         android:id="@+id/btnSearch"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:paddingTop="4dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerHorizontal="true"
                         android:background="@android:color/transparent"
+                        android:paddingTop="4dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/search" />
+
+                    <ImageButton
+                        android:id="@+id/btnCloseSearch"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/close1"
+                        android:visibility="gone" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/atcBookTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="80dp"
+                        android:hint="Nhập tên sách"
+                        android:lines="1"
+                        android:popupTheme="@color/colorPrimaryDark"
+                        android:textColor="@android:color/white"
+                        android:textColorHighlight="@color/colorAccent"
+                        android:textColorHint="@android:color/white"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 

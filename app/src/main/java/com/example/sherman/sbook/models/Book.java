@@ -1,9 +1,9 @@
 package com.example.sherman.sbook.models;
 
-/**
- * Created by kenp on 29/10/2016.
- */
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Book {
     private String title;
     private String coverUrl;
@@ -12,9 +12,19 @@ public class Book {
     private String tags;
     private String publisher;
     private String rating;
+    private String id;
+
+    public Book() {
+
+    }
+
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -43,5 +53,9 @@ public class Book {
 
     public String getRating() {
         return rating;
+    }
+
+    public String getId() {
+        return id;
     }
 }
