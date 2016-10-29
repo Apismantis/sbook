@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
 /**
  * Created by kenp on 29/10/2016.
  */
@@ -52,47 +54,6 @@ public class NotifyService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-//        categoryRef.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                Log.d(TAG, "onChildAdded: " + dataSnapshot.toString());
-//                String bookId = dataSnapshot.getValue().toString();
-//
-//                DatabaseReference bookRef = database.getReference(Database.BOOKS + bookId);
-//                bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        Book newBook = dataSnapshot.getValue(Book.class);
-//                        handleNewBook(newBook);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         bookRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -167,6 +128,7 @@ public class NotifyService extends IntentService {
 
         for (int i = 0; i < currentInterestingBook.length; i++) {
             String normalizedTitle = normalizeBookTitle(currentInterestingBook[i]);
+            Log.d(TAG, "isMatchInterest: " + normalizedNewBookTitle + " - " + normalizedTitle);
             if (compareTitle(normalizedNewBookTitle, normalizedTitle)) {
                 return true;
             }
@@ -176,13 +138,112 @@ public class NotifyService extends IntentService {
     }
 
     private boolean compareTitle(String normalizedNewBookTitle, String normalizedTitle) {
-        //if (normalizedNewBookTitle.equals(normalizedTitle))
+        if (FuzzySearch.ratio(normalizedNewBookTitle, normalizedTitle) >= 50)
             return true;
-        //return false;
+        return false;
     }
 
     private String normalizeBookTitle(String title) {
-        return title.toLowerCase();
+        String normalized = title.toLowerCase();
+        normalized = convertToUnicode(normalized);
+        return normalized;
+    }
+
+    private String convertToUnicode(String lowercaseString) {
+        char arr[] = lowercaseString.toCharArray();
+
+        for (int i = 0; i < lowercaseString.length(); i++) {
+            arr[i] = fromVietnameseToUnicode(arr[i]);
+        }
+
+        return new String(arr);
+    }
+
+    private char fromVietnameseToUnicode(char c) {
+        switch(c) {
+            case 'á':
+            case 'à':
+            case 'ả':
+            case 'ã':
+            case 'ạ':
+
+            case 'ă':
+            case 'ắ':
+            case 'ằ':
+            case 'ẳ':
+            case 'ẵ':
+            case 'ặ':
+
+            case 'â':
+            case 'ấ':
+            case 'ầ':
+            case 'ẩ':
+            case 'ẫ':
+            case 'ậ':
+                return 'a';
+
+            case 'é':
+            case 'è':
+            case 'ẻ':
+            case 'ẽ':
+            case 'ẹ':
+
+            case 'ê':
+            case 'ế':
+            case 'ề':
+            case 'ể':
+            case 'ễ':
+            case 'ệ':
+                return 'e';
+
+            case 'đ':
+                return 'd';
+
+            case 'í':
+            case 'ì':
+            case 'ĩ':
+            case 'ỉ':
+            case 'ị':
+                return 'i';
+
+            case 'ó':
+            case 'ò':
+            case 'õ':
+            case 'ỏ':
+            case 'ọ':
+
+            case 'ô':
+            case 'ố':
+            case 'ồ':
+            case 'ổ':
+            case 'ỗ':
+            case 'ộ':
+
+            case 'ơ':
+            case 'ớ':
+            case 'ờ':
+            case 'ở':
+            case 'ỡ':
+            case 'ợ':
+                return 'o';
+
+            case 'ư':
+            case 'ứ':
+            case 'ừ':
+            case 'ử':
+            case 'ữ':
+            case 'ự':
+
+            case 'ú':
+            case 'ù':
+            case 'ủ':
+            case 'ũ':
+            case 'ụ':
+                return 'o';
+
+            default:
+                return c;
+        }
     }
 
     public Bitmap getBitmapFromURL(String strURL) {

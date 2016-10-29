@@ -71,7 +71,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     private void showLoadingDialog() {
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setTitle(getString(R.string.loading_data));
-        loadingDialog.hid
         loadingDialog.setMessage(getString(R.string.please_wait));
         loadingDialog.setCancelable(false);
         loadingDialog.show();
