@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     private TextView tvFullName;
     private TextView tvInteresting;
 
-    private Button btnCall;
+    private RelativeLayout btnCall;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference bookRef;
@@ -85,7 +86,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
         tvFullName = (TextView) findViewById(R.id.tvUserFullname);
         tvInteresting = (TextView) findViewById(R.id.tvUserInteresting);
 
-        btnCall = (Button) findViewById(R.id.btnCall);
+        btnCall = (RelativeLayout) findViewById(R.id.rlContactOwner);
     }
 
     private void getDataFromFirebase() {
@@ -170,7 +171,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnCall:
+            case R.id.rlContactOwner:
                 callOwner();
                 break;
         }
