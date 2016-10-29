@@ -102,7 +102,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                         loadingDialog.hide();
                     }
 
-                    Toast.makeText(BookDetailActivity.this, "Cannot get book info", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookDetailActivity.this, R.string.error_when_load_book_data, Toast.LENGTH_SHORT).show();
                 }
             }
 

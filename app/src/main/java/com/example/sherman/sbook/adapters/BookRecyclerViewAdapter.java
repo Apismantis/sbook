@@ -63,7 +63,7 @@ class BookViewHolders extends RecyclerView.ViewHolder implements View.OnClickLis
         imvBookCover = (ImageView) itemView.findViewById(R.id.imvBookCover);
         tvTitle = (TextView) itemView.findViewById(R.id.tvBookName);
         tvAuthor = (TextView) itemView.findViewById(R.id.tvAuthor);
-        tvRating = (TextView) itemView.findViewById(R.id.rating);
+        tvRating = (TextView) itemView.findViewById(R.id.tvRating);
     }
 
     @Override

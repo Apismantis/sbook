@@ -137,6 +137,7 @@ public class HomeFragment extends Fragment {
                 .child(Database.BOOKS);
 
         CateRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
