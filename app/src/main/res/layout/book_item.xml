@@ -18,7 +18,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/imge_view_top_corner"
             android:minHeight="200dp"
-            android:scaleType="centerInside" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tvBookName"
@@ -46,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginRight="8dp"
                 android:lines="1"
                 android:text="Tony"
                 android:textColor="@color/colorSecondaryText"
@@ -64,13 +65,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="1"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="#14c729" />
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/star2" />
+                    android:src="@drawable/stars" />
             </LinearLayout>
 
         </LinearLayout>

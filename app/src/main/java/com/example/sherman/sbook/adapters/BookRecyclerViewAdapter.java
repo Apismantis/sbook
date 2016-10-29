@@ -1,6 +1,8 @@
 package com.example.sherman.sbook.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
+import com.example.sherman.sbook.activities.BookDetailActivity;
+import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.models.Book;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +41,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
         holder.tvTitle.setText(books.get(position).getTitle());
         holder.tvAuthor.setText(books.get(position).getAuthor());
         holder.tvRating.setText(books.get(position).getRating());
+        holder.bookId = books.get(position).getId();
 
         Picasso.with(mContext)
                 .load(books.get(position).getCoverUrl())
@@ -55,10 +60,12 @@ class BookViewHolders extends RecyclerView.ViewHolder implements View.OnClickLis
     TextView tvTitle;
     TextView tvAuthor;
     ImageView imvBookCover;
+    String bookId;
 
     public BookViewHolders(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
+        this.bookId = bookId;
 
         imvBookCover = (ImageView) itemView.findViewById(R.id.imvBookCover);
         tvTitle = (TextView) itemView.findViewById(R.id.tvBookName);
@@ -68,7 +75,9 @@ class BookViewHolders extends RecyclerView.ViewHolder implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(view.getContext(), "Clicked Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+        Intent bookDetailIntent = new Intent(view.getContext(), BookDetailActivity.class);
+        bookDetailIntent.putExtra(Constants.bookId, bookId);
+        view.getContext().startActivity(bookDetailIntent);
     }
 }
 
