@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
@@ -67,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
+//        if (id == R.id.action_setqtings) {
 //            return true;
 //        }
-
+        Toast.makeText(this, "ádasdasdasdasdasdasdasdasdasd", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
