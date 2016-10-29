@@ -18,7 +18,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/imge_view_top_corner"
             android:minHeight="200dp"
-            android:scaleType="centerInside" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tvBookName"
@@ -48,6 +48,7 @@
                 android:layout_gravity="center_vertical"
                 android:lines="1"
                 android:text="Tony"
+                android:paddingRight="8dp"
                 android:textColor="@color/colorSecondaryText"
                 android:textSize="12sp" />
 

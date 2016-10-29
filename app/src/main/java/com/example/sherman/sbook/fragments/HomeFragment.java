@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.BookRecyclerViewAdapter;
+import com.example.sherman.sbook.adapters.RecycleViewDecoration;
 import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.constants.Database;
 import com.example.sherman.sbook.models.Book;
@@ -194,6 +195,9 @@ public class HomeFragment extends Fragment {
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
         rcAdapter = new BookRecyclerViewAdapter(mContext, Books);
+
+        int spacingInPixels = 4;
+        recyclerView.addItemDecoration(new RecycleViewDecoration(spacingInPixels));
         recyclerView.setAdapter(rcAdapter);
     }
 
