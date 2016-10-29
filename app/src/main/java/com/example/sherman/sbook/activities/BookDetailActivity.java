@@ -126,7 +126,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getUserInfo(String userId) {
-        ownerRef = database.getReference(Database.USERS + userId);
+        ownerRef = database.getReference().child(Database.USERS).child(userId);
         ownerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,7 +163,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void updateUserInfoUI() {
         tvFullName.setText(owner.getFullName());
-        tvInteresting.setText(owner.getInteresting());
+        tvInteresting.setText(owner.getLocation());
         imageLoader.displayImage(owner.getAvatarUrl(), ivAvatar);
         btnCall.setOnClickListener(this);
 
