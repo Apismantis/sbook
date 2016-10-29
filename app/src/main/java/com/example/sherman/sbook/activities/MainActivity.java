@@ -13,9 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.sherman.sbook.Book;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -68,16 +66,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-//        recyclerView.setHasFixedSize(true);
-//
-//        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
-//        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-//
-//        List<Book> gaggeredList = getListItemData();
-//
-//        BookRecyclerViewAdapter rcAdapter = new BookRecyclerViewAdapter(MainActivity.this, gaggeredList);
-//        recyclerView.setAdapter(rcAdapter);
         initImageLoader();
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
@@ -86,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-//        Intent intent = new Intent(this, BookDetailActivity.class);
-//        intent.putExtra(Constants.bookId, "hp04J1ddxsgpfVscwqpzM2Kz48r2");
-//        startActivity(intent);
     }
 
     private void initView() {
@@ -107,48 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-//        if (id == R.id.action_setqtings) {
-//            return true;
-//        }
-        Toast.makeText(this, "ádasdasdasdasdasdasdasdasdasd", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
-    }
-
-    private List<Book> getListItemData(){
-        List<Book> listViewItems = new ArrayList<Book>();
-        listViewItems.add(new Book("Alkane", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ethane", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Alkyne", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Benzene", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Amide", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Amino Acid", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Phenol", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Carbonxylic", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Nitril", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ether", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ester", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Alcohol", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Alkane", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ethane", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Alkyne", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Benzene", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Amide", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Amino Acid", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Phenol", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Carbonxylic", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Nitril", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ether", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Ester", R.mipmap.ic_launcher));
-        listViewItems.add(new Book("Alcohol", R.mipmap.ic_launcher));
-        return listViewItems;
     }
 
     private void initImageLoader() {
