@@ -58,8 +58,8 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
         Log.d("TAG", "Change data...");
         this.books.clear();
         this.books.addAll(books);
-        //notifyDataSetChanged();
         notifyItemRangeChanged(0, books.size());
+        notifyDataSetChanged();
     }
 }
 
