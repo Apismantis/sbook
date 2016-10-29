@@ -15,7 +15,8 @@ public class Book {
     private String interesting;
     private String id;
 
-    public Book(String title, String coverUrl, String author, String tags, String publisher, String inter, String owner) {
+    public Book(String id, String title, String coverUrl, String author, String tags, String publisher, String inter, String owner) {
+        this.id = id;
         this.title = title;
         this.coverUrl = coverUrl;
         this.author = author;

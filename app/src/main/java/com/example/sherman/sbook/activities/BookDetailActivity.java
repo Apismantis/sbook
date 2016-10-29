@@ -88,7 +88,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getDataFromFirebase() {
-        bookRef = database.getReference(Database.BOOKS + bookId);
+        bookRef = database.getReference().child(Database.BOOKS).child(bookId);
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -126,7 +126,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getUserInfo(String userId) {
-        ownerRef = database.getReference(Database.USERS + userId);
+        ownerRef = database.getReference().child(Database.USERS).child(userId);
         ownerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -139,7 +139,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                         loadingDialog.hide();
                     }
 
-                    Toast.makeText(BookDetailActivity.this, "Cannot get user info", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookDetailActivity.this, R.string.error_when_load_user_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -163,7 +163,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void updateUserInfoUI() {
         tvFullName.setText(owner.getFullName());
-        tvInteresting.setText(owner.getInteresting());
+        tvInteresting.setText(owner.getLocation());
         imageLoader.displayImage(owner.getAvatarUrl(), ivAvatar);
         btnCall.setOnClickListener(this);
 
