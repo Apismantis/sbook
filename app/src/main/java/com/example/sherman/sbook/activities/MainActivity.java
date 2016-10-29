@@ -1,8 +1,6 @@
 package com.example.sherman.sbook.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,10 +16,10 @@ import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
+import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.fragments.HomeFragment;
 import com.example.sherman.sbook.fragments.NotificationFragment;
 import com.example.sherman.sbook.fragments.SearchFragment;
-import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public AutoCompleteTextView atcBookTitle;
     private RelativeLayout homeFragment;
     private TabLayout tabLayout;
-    private FloatingActionButton fab;
+    private NavigationView navDrawer;
 
     // Book title
     public String[] bookTitle = {
@@ -151,6 +149,29 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
+
+        navDrawer = (NavigationView) findViewById(R.id.navDrawer);
+        navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.navLogout:
+                        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString(Constants.UserID, "");
+                        editor.apply();
+
+                        Intent splastScreen = new Intent(MainActivity.this, SplashActivity.class);
+                        startActivity(splastScreen);
+                        finish();
+                        return true;
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
