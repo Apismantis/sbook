@@ -59,16 +59,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getUser(String username, String password) {
-        return "01vKuHSGJTV4Lx9sswhuWc30BC12";
-//        if (!username.equals("") && !password.equals("")) {
-//            if (username.equals("u1"))
-//                return "01vKuHSGJTV4Lx9sswhuWc30BC12";
-//            else if (username.equals("u2"))
-//                return "NDJah5ROVaRkrunxSQDaEX7h7Ph2";
-//            return "";
-//        }
-//
-//        return "";
+        if (!username.equals("") && !password.equals("")) {
+            if (username.equals("u1"))
+                return "01vKuHSGJTV4Lx9sswhuWc30BC12";
+            else if (username.equals("u2"))
+                return "NDJah5ROVaRkrunxSQDaEX7h7Ph2";
+            return "";
+        }
+
+        return "";
     }
 
     private void openMainActivity() {

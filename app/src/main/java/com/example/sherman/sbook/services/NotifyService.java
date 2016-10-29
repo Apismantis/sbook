@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
@@ -28,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
@@ -46,7 +49,13 @@ public class NotifyService extends IntentService {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference categoryRef = database.getReference(Database.CATEGORIES + "nt0WxiJNyRQ9r1OXPNIE7wNr4p12/books");
-    private DatabaseReference bookRef = database.getReference(Database.BOOKS);
+    private DatabaseReference bookRef = database.getReference().child(Database.BOOKS);
+    private DatabaseReference notificationRef = database.getReference().child(Database.USERS);
+    private DatabaseReference interestingRef = database.getReference().child(Database.USERS);
+
+    ArrayList<String> currentInterestingBook = new ArrayList<>();
+    private String userId;
+
 
     public NotifyService() {
         super("Notify new book service");
@@ -55,6 +64,36 @@ public class NotifyService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        getUserId();
+
+
+        interestingRef.child(userId).child("interests").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                currentInterestingBook.add(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -93,22 +132,48 @@ public class NotifyService extends IntentService {
         });
     }
 
-    private void handleNewBook(Book newBook) {
+    private void handleNewBook(final Book newBook) {
 
-        if (isMatchInterest(newBook))
-            sendNotification(newBook);
+        if (isMatchInterest(newBook)) {
+            notificationRef.child(userId)
+                    .child("notifications").child(newBook.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.getValue() == null) {
+                                notificationRef.child(userId)
+                                        .child("notifications").child(newBook.getId())
+                                        .setValue(false);
+
+                                sendNotification(newBook);
+
+                                return;
+                            }
+
+                            if (!(boolean) dataSnapshot.getValue()) {
+                                sendNotification(newBook);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
     }
 
     private void sendNotification(final Book newBook) {
 
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra(Constants.bookId, newBook.getId());
+        intent.putExtra("updateStatus", true);
 
         int requestID = (int) System.currentTimeMillis();
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, flags);
-
 
 
         new Thread(new Runnable() {
@@ -117,8 +182,8 @@ public class NotifyService extends IntentService {
                 Bitmap bookCover = null;
                 try {
                     bookCover = Glide.with(getApplicationContext()).load(newBook.getCoverUrl()).asBitmap().into(100, 300).get();
-                    String message = newBook.getTitle() + " " +  getString(R.string.had_just_been_added);
-                    Notification.Builder notificationBuilder  = new Notification.Builder(getApplicationContext())
+                    String message = newBook.getTitle() + " " + getString(R.string.had_just_been_added);
+                    Notification.Builder notificationBuilder = new Notification.Builder(getApplicationContext())
                             .setContentTitle(getString(R.string.app_name))
                             .setContentText(message)
                             .setContentIntent(pendingIntent)
@@ -146,37 +211,14 @@ public class NotifyService extends IntentService {
                 }
             }
         }).start();
-
-//        String message = newBook.getTitle() + " " +  getString(R.string.had_just_been_added);
-//        Notification.Builder notificationBuilder  = new Notification.Builder(getApplicationContext())
-//                .setContentTitle(getString(R.string.app_name))
-//                .setContentText(message)
-//                .setContentIntent(pendingIntent)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setAutoCancel(true)
-//                .setStyle(new Notification.BigTextStyle().bigText(message))
-//                .setTicker(message);
-//
-//
-//        Notification notification = notificationBuilder.build();
-//
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(900, notification);
-
     }
 
     private boolean isMatchInterest(Book book) {
 
-        String[] currentInterestingBook = {"Nếu mình còn yêu nhau", "Đừng nói với anh ấy rằng tôi vần còn yêu",
-        "Hậu duệ mặt trời", "Trái tim bên lề", "Mua xuân trên lò gạch"};
-
         String normalizedNewBookTitle = normalizeBookTitle(book.getTitle());
 
-        for (int i = 0; i < currentInterestingBook.length; i++) {
-            String normalizedTitle = normalizeBookTitle(currentInterestingBook[i]);
+        for (int i = 0; i < currentInterestingBook.size(); i++) {
+            String normalizedTitle = normalizeBookTitle(currentInterestingBook.get(i));
             Log.d(TAG, "isMatchInterest: " + normalizedNewBookTitle + " - " + normalizedTitle);
             if (compareTitle(normalizedNewBookTitle, normalizedTitle)) {
                 return true;
@@ -209,7 +251,7 @@ public class NotifyService extends IntentService {
     }
 
     private char fromVietnameseToUnicode(char c) {
-        switch(c) {
+        switch (c) {
             case 'á':
             case 'à':
             case 'ả':
@@ -308,5 +350,12 @@ public class NotifyService extends IntentService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // Get user id
+    public String getUserId() {
+        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+        userId = sp.getString(Constants.UserID, "");
+        return userId;
     }
 }

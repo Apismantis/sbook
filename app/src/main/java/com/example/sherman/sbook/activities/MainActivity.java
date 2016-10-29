@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.example.sherman.sbook.fragments.HomeFragment;
+import com.example.sherman.sbook.fragments.NotificationFragment;
 import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "ONE");
         adapter.addFragment(new HomeFragment(), "TWO");
-        adapter.addFragment(new HomeFragment(), "THREE");
+        adapter.addFragment(new NotificationFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
 

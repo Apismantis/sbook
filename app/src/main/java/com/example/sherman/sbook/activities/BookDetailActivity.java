@@ -2,7 +2,9 @@ package com.example.sherman.sbook.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -64,6 +66,11 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         bookId = intent.getStringExtra(Constants.bookId);
+        boolean updateNotificationStatus = intent.getBooleanExtra("updateStatus", false);
+        if (updateNotificationStatus) {
+            FirebaseDatabase.getInstance().getReference().child(Database.USERS).child(getUserId())
+                    .child("notifications").child(bookId).setValue(true);
+        }
         getDataFromFirebase();
     }
 
@@ -192,5 +199,11 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
             startActivity(intent);
         }
+    }
+
+    // Get user id
+    public String getUserId() {
+        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+        return sp.getString(Constants.UserID, "");
     }
 }
