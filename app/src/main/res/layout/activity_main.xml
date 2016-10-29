@@ -77,9 +77,6 @@
                         android:layout_marginRight="80dp"
                         android:hint="Nhập tên sách"
                         android:lines="1"
-                        android:textColor="@android:color/white"
-                        android:textColorHighlight="@android:color/white"
-                        android:textColorHint="@android:color/white"
                         android:visibility="gone" />
 
                 </RelativeLayout>
@@ -122,7 +119,7 @@
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_view"
+        android:id="@+id/navDrawer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

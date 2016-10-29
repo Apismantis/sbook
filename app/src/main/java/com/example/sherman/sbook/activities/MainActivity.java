@@ -1,12 +1,17 @@
 package com.example.sherman.sbook.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
+import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.fragments.HomeFragment;
 import com.example.sherman.sbook.fragments.SearchFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public AutoCompleteTextView atcBookTitle;
     private RelativeLayout homeFragment;
     private TabLayout tabLayout;
+    private NavigationView navDrawer;
 
     // Book title
     public String[] bookTitle = {
@@ -137,10 +144,35 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
+
+        navDrawer = (NavigationView) findViewById(R.id.navDrawer);
+        navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.navLogout:
+                        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString(Constants.UserID, "");
+                        editor.apply();
+
+                        Intent splastScreen = new Intent(MainActivity.this, SplashActivity.class);
+                        startActivity(splastScreen);
+                        finish();
+                        return true;
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+
         return true;
     }
 
