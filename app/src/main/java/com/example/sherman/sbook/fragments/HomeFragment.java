@@ -18,6 +18,7 @@ import com.example.sherman.sbook.adapters.RecycleViewDecoration;
 import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.constants.Database;
 import com.example.sherman.sbook.models.Book;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -109,20 +110,33 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadOtherBooks() {
-        BookRef.addValueEventListener(new ValueEventListener() {
+        BookRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String bookId = dataSnapshot.getKey();
+                Log.d(TAG, "Load other book: " + bookId);
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String bookId = child.getKey();
-                    Log.d(TAG, "Load other book: " + bookId);
-
-                    if (!BookLoaded.contains(bookId)) {
-                        Book book = dataSnapshot.getValue(Book.class);
-                        Books.add(book);
-                        rcAdapter.notifyDataSetChanged();
-                    }
+                if (!BookLoaded.contains(bookId)) {
+                    Book book = dataSnapshot.getValue(Book.class);
+                    Books.add(book);
+                    rcAdapter.notifyDataSetChanged();
+                    Log.d(TAG, book.getCoverUrl());
                 }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -184,6 +198,7 @@ public class HomeFragment extends Fragment {
 
     // Get Categories
     public String[] getCategories(String intersting) {
+        Log.d(TAG, "Categories: " + intersting);
         return intersting.split(",");
     }
 
@@ -197,6 +212,9 @@ public class HomeFragment extends Fragment {
         rcAdapter = new BookRecyclerViewAdapter(mContext, Books);
 
         int spacingInPixels = 4;
+        if (Integer.valueOf(android.os.Build.VERSION.SDK) >= 21)
+            spacingInPixels = 16;
+
         recyclerView.addItemDecoration(new RecycleViewDecoration(spacingInPixels));
         recyclerView.setAdapter(rcAdapter);
     }
