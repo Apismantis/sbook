@@ -1,14 +1,18 @@
 package com.example.sherman.sbook.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -18,7 +22,10 @@ import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
+import com.example.sherman.sbook.constants.Constants;
+import com.example.sherman.sbook.fragments.CategoryFragment;
 import com.example.sherman.sbook.fragments.HomeFragment;
+import com.example.sherman.sbook.fragments.NotificationFragment;
 import com.example.sherman.sbook.fragments.SearchFragment;
 import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public AutoCompleteTextView atcBookTitle;
     private RelativeLayout homeFragment;
     private TabLayout tabLayout;
+    private NavigationView navDrawer;
     private FloatingActionButton fab;
 
     // Book title
@@ -102,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
 
-        fab = (FloatingActionButton)findViewById(R.id.fabAddNewBook);
+        fab = (FloatingActionButton) findViewById(R.id.fabAddNewBook);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "ONE");
-        adapter.addFragment(new HomeFragment(), "TWO");
-        adapter.addFragment(new HomeFragment(), "THREE");
+        adapter.addFragment(new CategoryFragment(), "TWO");
+        adapter.addFragment(new NotificationFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
 
@@ -150,6 +158,29 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
+
+        navDrawer = (NavigationView) findViewById(R.id.navDrawer);
+        navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.navLogout:
+                        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString(Constants.UserID, "");
+                        editor.apply();
+
+                        Intent splastScreen = new Intent(MainActivity.this, SplashActivity.class);
+                        startActivity(splastScreen);
+                        finish();
+                        return true;
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
