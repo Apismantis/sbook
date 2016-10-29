@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Book Hub</string>
+    <string name="app_name">BookHub</string>
     <string name="contact_this_friend">Liên hệ đổi sách</string>
+<<<<<<< Updated upstream
     <string name="nav_item_attachment">Attachment</string>
     <string name="nav_item_images">Images</string>
     <string name="nav_item_location">Location</string>
@@ -9,4 +10,7 @@
     <string name="nav_sub_menu">Sub menu</string>
     <string name="drawer_header_text">Drawer header</string>
     <string name="action_settings">setting</string>
+=======
+    <string name="slogan"># Cho đi nhận lại</string>
+>>>>>>> Stashed changes
 </resources>
