@@ -67,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-//        if (id == R.id.action_setqtings) {
-//            return true;
-//        }
         Toast.makeText(this, "ádasdasdasdasdasdasdasdasdasd", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
