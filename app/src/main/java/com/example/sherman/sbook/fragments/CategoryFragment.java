@@ -70,12 +70,12 @@ public class CategoryFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String id = dataSnapshot.getKey();
                 Log.d("ABC", id);
-                List<String> listBook= new ArrayList<>();
+                List<String> listBook = new ArrayList<>();
 
                 for (DataSnapshot book : dataSnapshot.child("books").getChildren()) {
                     listBook.add(book.getValue().toString());
                 }
-                listViewItems.add(new Category(dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("coverUrl").getValue().toString(), listBook));
+                listViewItems.add(new Category(id, listBook, dataSnapshot.child("coverUrl").getValue().toString(), dataSnapshot.child("description").getValue().toString(), dataSnapshot.child("name").getValue().toString()));
                 adapter.notifyDataSetChanged();
             }
 

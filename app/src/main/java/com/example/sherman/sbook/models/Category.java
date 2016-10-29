@@ -1,20 +1,43 @@
 package com.example.sherman.sbook.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by kenp on 29/10/2016.
  */
 
-public class Category {
+public class Category implements Serializable {
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     List<String> listIDBook;
     String backgound;
 
-    public Category(String name,String backgound, List<String> list) {
-        this.name = name;
-        listIDBook = null;
+    public Category(String id, List<String> listIDBook, String backgound, String desr, String name) {
+        this.id = id;
+        this.listIDBook = listIDBook;
         this.backgound = backgound;
+        this.desr = desr;
+        this.name = name;
     }
+
+    public String getDesr() {
+        return desr;
+    }
+
+    public void setDesr(String desr) {
+        this.desr = desr;
+    }
+
+    String desr;
 
     public String getBackgound() {
         return backgound;
