@@ -13,5 +13,7 @@
     <string name="title_author">Tác giả</string>
     <string name="title_publisher">Nhà xuất bản</string>
     <string name="title_tags">Thể loại</string>
+    <string name="title_interest">Tên sách quan tâm</string>
     <string name="title_title">Tên sách</string>
+    <string name="add_book">Add New Book</string>
 </resources>

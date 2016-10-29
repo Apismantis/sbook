@@ -16,10 +16,10 @@
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.FullScreen">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <activity android:name=".activities.MainActivity" />
@@ -29,6 +29,14 @@
             android:theme="@style/AppTheme.FullScreen"/>
 
         <activity android:name=".activities.BookDetailActivity" />
+
+        <activity android:name=".activities.AddBookActivity"
+                  android:theme="@style/Theme.Light.ActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
