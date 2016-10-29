@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="6dp"
+    card_view:cardCornerRadius="4dp"
     android:layout_marginBottom="16dp">
 
     <android.support.constraint.ConstraintLayout
@@ -22,7 +22,7 @@
             card_view:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="0dp"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintHorizontal_bias="1.0"
+            card_view:layout_constraintHorizontal_bias="0.0"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintLeft_creator="1"
             card_view:srcCompat="@drawable/english"
@@ -32,7 +32,7 @@
             android:text="TextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tac_gia"
+            android:id="@+id/author"
             card_view:layout_constraintTop_toBottomOf="@+id/book_name"
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintRight_toLeftOf="@+id/linearLayout"
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rating"
-                card_view:layout_constraintLeft_toRightOf="@+id/tac_gia"
+                card_view:layout_constraintLeft_toRightOf="@+id/author"
                 card_view:layout_constraintRight_toLeftOf="@+id/imageView"
                 android:layout_marginEnd="0dp"
                 android:layout_marginRight="0dp"

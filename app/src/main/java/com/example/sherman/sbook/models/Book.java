@@ -11,6 +11,11 @@ public class Book {
     private String owner;
     private String tags;
     private String publisher;
+    private String rating;
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
 
     public String getTitle() {
         return title;
@@ -34,5 +39,9 @@ public class Book {
 
     public String getCoverUrl() {
         return coverUrl;
+    }
+
+    public String getRating() {
+        return rating;
     }
 }

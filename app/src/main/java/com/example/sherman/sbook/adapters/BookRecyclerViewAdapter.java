@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sherman.sbook.Book;
 import com.example.sherman.sbook.activities.BookViewHolders;
 import com.example.sherman.sbook.R;
+import com.example.sherman.sbook.models.Book;
 
 import java.util.List;
 
@@ -34,8 +34,9 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
 
     @Override
     public void onBindViewHolder(BookViewHolders holder, int position) {
-        holder.countryName.setText(itemList.get(position).getName());
-       // holder.countryPhoto.setImageResource(itemList.get(position).getPhoto());
+        holder.title.setText(itemList.get(position).getTitle());
+        holder.author.setText(itemList.get(position).getAuthor());
+        holder.rating.setText(itemList.get(position).getRating());
     }
 
     @Override
