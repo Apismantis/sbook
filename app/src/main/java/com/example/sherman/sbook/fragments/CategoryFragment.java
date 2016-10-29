@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -69,8 +70,12 @@ public class CategoryFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String id = dataSnapshot.getKey();
                 Log.d("ABC", id);
+                List<String> listBook= new ArrayList<>();
 
-                listViewItems.add(new Category(dataSnapshot.child("name").getValue().toString(), null));
+                for (DataSnapshot book : dataSnapshot.child("books").getChildren()) {
+                    listBook.add(book.getValue().toString());
+                }
+                listViewItems.add(new Category(dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("coverUrl").getValue().toString(), listBook));
                 adapter.notifyDataSetChanged();
             }
 

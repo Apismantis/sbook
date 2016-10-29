@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.models.Category;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,6 +39,9 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     @Override
     public void onBindViewHolder(CategoryViewHolders holder, int position) {
         holder.name.setText(itemList.get(position).getName());
+        Picasso.with(context)
+                .load(itemList.get(position).getBackgound())
+                .into(holder.background);
     }
 
     @Override
@@ -46,12 +51,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     public class CategoryViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView name;
-
+        public ImageView background;
         public CategoryViewHolders(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             name = (TextView) itemView.findViewById(R.id.tvCategoryName);
-
+            background = (ImageView) itemView.findViewById(R.id.background);
         }
 
         @Override

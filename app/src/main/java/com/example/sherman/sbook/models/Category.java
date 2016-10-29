@@ -10,9 +10,10 @@ public class Category {
     List<String> listIDBook;
     String backgound;
 
-    public Category(String name, List<String> list) {
+    public Category(String name,String backgound, List<String> list) {
         this.name = name;
         listIDBook = null;
+        this.backgound = backgound;
     }
 
     public String getBackgound() {

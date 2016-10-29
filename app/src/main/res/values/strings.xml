@@ -19,4 +19,6 @@
     <string name="title_title">Tên sách</string>
     <string name="please_wait">Vui lòng chờ giây lát...</string>
     <string name="loading_data">Đang tải dữ liệu</string>
+    <string name="error_when_load_book_data">Có lỗi xảy ra khi tải thông tin sách.</string>
+    <string name="error_when_load_user_data">Có lỗi xảy ra khi tải thông tin người dùng.</string>
 </resources>

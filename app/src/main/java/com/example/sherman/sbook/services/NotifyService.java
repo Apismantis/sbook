@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.activities.BookDetailActivity;
 import com.example.sherman.sbook.constants.Constants;
@@ -27,8 +28,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+
+import static com.example.sherman.sbook.R.drawable.book;
+import static com.example.sherman.sbook.R.drawable.notification;
 
 /**
  * Created by kenp on 29/10/2016.
@@ -58,7 +63,7 @@ public class NotifyService extends IntentService {
         bookRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Book newBook = dataSnapshot.getValue(Book.class);
+                final Book newBook = dataSnapshot.getValue(Book.class);
 
                 if (newBook != null) {
                     newBook.setId(dataSnapshot.getKey());
@@ -94,7 +99,7 @@ public class NotifyService extends IntentService {
             sendNotification(newBook);
     }
 
-    private void sendNotification(Book newBook) {
+    private void sendNotification(final Book newBook) {
 
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra(Constants.bookId, newBook.getId());
@@ -102,21 +107,65 @@ public class NotifyService extends IntentService {
         int requestID = (int) System.currentTimeMillis();
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, flags);
-
-        Notification notification  = new Notification.Builder(this)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(newBook.getTitle() + " " +  getString(R.string.had_just_been_added))
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .build();
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, flags);
 
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(900, notification);
-        Log.d(TAG, "sendNotification: sent");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bookCover = null;
+                try {
+                    bookCover = Glide.with(getApplicationContext()).load(newBook.getCoverUrl()).asBitmap().into(100, 300).get();
+                    String message = newBook.getTitle() + " " +  getString(R.string.had_just_been_added);
+                    Notification.Builder notificationBuilder  = new Notification.Builder(getApplicationContext())
+                            .setContentTitle(getString(R.string.app_name))
+                            .setContentText(message)
+                            .setContentIntent(pendingIntent)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setAutoCancel(true)
+                            .setStyle(new Notification.BigTextStyle().bigText(message))
+                            .setTicker(message);
+
+                    if (bookCover != null) {
+                        notificationBuilder.setLargeIcon(bookCover);
+                    }
+
+                    Notification notification = notificationBuilder.build();
+
+
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(900, notification);
+                    Log.d(TAG, "sendNotification: sent");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+//        String message = newBook.getTitle() + " " +  getString(R.string.had_just_been_added);
+//        Notification.Builder notificationBuilder  = new Notification.Builder(getApplicationContext())
+//                .setContentTitle(getString(R.string.app_name))
+//                .setContentText(message)
+//                .setContentIntent(pendingIntent)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setAutoCancel(true)
+//                .setStyle(new Notification.BigTextStyle().bigText(message))
+//                .setTicker(message);
+//
+//
+//        Notification notification = notificationBuilder.build();
+//
+//
+//        NotificationManager notificationManager =
+//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+//        notificationManager.notify(900, notification);
+
     }
 
     private boolean isMatchInterest(Book book) {
@@ -239,7 +288,7 @@ public class NotifyService extends IntentService {
             case 'ủ':
             case 'ũ':
             case 'ụ':
-                return 'o';
+                return 'u';
 
             default:
                 return c;
