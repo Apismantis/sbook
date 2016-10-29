@@ -1,16 +1,16 @@
 package com.example.sherman.sbook.activities;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.sherman.sbook.Book;
-import com.example.sherman.sbook.adapters.BookRecyclerViewAdapter;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,10 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
 
+    private ImageButton btnMenu, btnSearch;
+    private TextView tvAcitivityTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Init view
+        initView();
+
 //        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
 //        recyclerView.setHasFixedSize(true);
 //
@@ -50,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra(Constants.bookId, "hp04J1ddxsgpfVscwqpzM2Kz48r2");
 //        startActivity(intent);
     }
+
+    private void initView() {
+        btnMenu = (ImageButton) findViewById(R.id.btnMenuDrawer);
+        btnSearch = (ImageButton) findViewById(R.id.btnSearch);
+
+        tvAcitivityTitle = (TextView) findViewById(R.id.tvActivityTitle);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.menu_main, menu);
