@@ -3,12 +3,15 @@ package com.example.sherman.sbook.services;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.sherman.sbook.R;
+import com.example.sherman.sbook.activities.BookDetailActivity;
+import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.constants.Database;
 import com.example.sherman.sbook.models.Book;
 import com.google.firebase.database.ChildEventListener;
@@ -42,53 +45,55 @@ public class NotifyService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        categoryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "onChildAdded: " + dataSnapshot.toString());
-                String bookId = dataSnapshot.getValue().toString();
-
-                DatabaseReference bookRef = database.getReference(Database.BOOKS + bookId);
-                bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Book newBook = dataSnapshot.getValue(Book.class);
-                        handleNewBook(newBook);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        categoryRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Log.d(TAG, "onChildAdded: " + dataSnapshot.toString());
+//                String bookId = dataSnapshot.getValue().toString();
+//
+//                DatabaseReference bookRef = database.getReference(Database.BOOKS + bookId);
+//                bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        Book newBook = dataSnapshot.getValue(Book.class);
+//                        handleNewBook(newBook);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         bookRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Book newBook = dataSnapshot.getValue(Book.class);
+
                 if (newBook != null) {
+                    newBook.setId(dataSnapshot.getKey());
                     handleNewBook(newBook);
                 } else Log.e(TAG, "onChildAdded: Cannot parse new book.");
             }
@@ -123,9 +128,18 @@ public class NotifyService extends IntentService {
 
     private void sendNotification(Book newBook) {
 
-        Notification n  = new Notification.Builder(this)
+        Intent intent = new Intent(this, BookDetailActivity.class);
+        intent.putExtra(Constants.bookId, newBook.getId());
+
+        int requestID = (int) System.currentTimeMillis();
+        int flags = PendingIntent.FLAG_CANCEL_CURRENT;
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, flags);
+
+        Notification notification  = new Notification.Builder(this)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText(newBook.getTitle() + getString(R.string.had_just_been_added))
+                .setContentText(newBook.getTitle() + " " +  getString(R.string.had_just_been_added))
+                .setContentIntent(pendingIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .build();
 
@@ -133,7 +147,8 @@ public class NotifyService extends IntentService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(notificationId++, n);
+        notificationManager.notify(notificationId++, notification);
+        Log.d(TAG, "sendNotification: sent");
     }
 
     private boolean isMatchInterest(Book book) {
@@ -154,9 +169,9 @@ public class NotifyService extends IntentService {
     }
 
     private boolean compareTitle(String normalizedNewBookTitle, String normalizedTitle) {
-        if (normalizedNewBookTitle.equals(normalizedTitle))
+        //if (normalizedNewBookTitle.equals(normalizedTitle))
             return true;
-        return false;
+        //return false;
     }
 
     private String normalizeBookTitle(String title) {

@@ -1,7 +1,20 @@
 <resources>
-    <string name="app_name">Book Hub</string>
+    <string name="app_name">BookHub</string>
     <string name="contact_this_friend">Liên hệ đổi sách</string>
     <string name="view_now">Xem ngay</string>
     <string name="ignore">Bỏ Qua</string>
-    <string name="had_just_been_added">mới được thêm vào Book Hub. Click để xem ngay.</string>
+    <string name="had_just_been_added"> mới được thêm vào Book Hub. Click để xem ngay.</string>
+    <string name="nav_item_attachment">Attachment</string>
+    <string name="nav_item_images">Images</string>
+    <string name="nav_item_location">Location</string>
+    <string name="nav_sub_menu_item01">menu_item01</string>
+    <string name="nav_sub_menu_item02">menu_item02</string>
+    <string name="nav_sub_menu">Sub menu</string>
+    <string name="drawer_header_text">Drawer header</string>
+    <string name="action_settings">setting</string>
+    <string name="slogan"># Cho đi nhận lại</string>
+    <string name="title_author">Tác giả</string>
+    <string name="title_publisher">Nhà xuất bản</string>
+    <string name="title_tags">Thể loại</string>
+    <string name="title_title">Tên sách</string>
 </resources>

@@ -11,6 +11,21 @@ public class Book {
     private String owner;
     private String tags;
     private String publisher;
+    private String rating;
+    private String id;
+
+    public Book() {
+
+    }
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -34,5 +49,13 @@ public class Book {
 
     public String getCoverUrl() {
         return coverUrl;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public String getId() {
+        return id;
     }
 }
