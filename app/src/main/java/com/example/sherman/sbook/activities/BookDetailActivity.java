@@ -110,6 +110,10 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void updateBookInfoUI() {
+
+        getSupportActionBar().setTitle(book.getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         tvTitle.setText(book.getTitle());
         tvAuthor.setText(book.getAuthor());
         tvPublisher.setText(book.getPublisher());
