@@ -15,28 +15,24 @@
         android:largeHeap="true">
         <activity
             android:name=".activities.SplashActivity"
-            android:theme="@style/AppTheme.FullScreen">
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-
-        <activity android:name=".activities.MainActivity" />
-
-        <activity
-            android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.FullScreen"/>
-
-        <activity android:name=".activities.BookDetailActivity" />
-
-        <activity android:name=".activities.AddBookActivity"
-                  android:theme="@style/Theme.Light.ActionBar">
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.MainActivity" android:theme="@style/NoActionbar" />
+
+        <activity
+            android:name=".activities.LoginActivity"
+            android:theme="@style/FullScreen"/>
+
+        <activity android:name=".activities.BookDetailActivity" />
+        <activity android:name=".activities.AddBookActivity"
+                  android:theme="@style/Theme.Light.ActionBar">
+        </activity>
+        <service android:name=".services.NotifyService" android:exported="false" />
     </application>
 
 </manifest>
