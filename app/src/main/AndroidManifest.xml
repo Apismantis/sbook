@@ -27,7 +27,8 @@
         <activity
             android:name=".activities.LoginActivity"
             android:theme="@style/FullScreen"/>
-
+        <activity android:name=".activities.CategoryActivity"
+            android:theme="@style/NoActionbar"/>
         <activity android:name=".activities.BookDetailActivity" />
         <activity android:name=".activities.AddBookActivity"
                   android:theme="@style/Theme.Light.ActionBar">

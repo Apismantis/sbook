@@ -11,8 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
@@ -21,11 +24,14 @@ import com.example.sherman.sbook.adapters.RecycleViewDecoration;
 import com.example.sherman.sbook.constants.Constants;
 import com.example.sherman.sbook.constants.Database;
 import com.example.sherman.sbook.models.Book;
+import com.example.sherman.sbook.models.Category;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +41,11 @@ import java.util.List;
  */
 
 public class CategoryActivity extends AppCompatActivity {
+    private static final String TAG = "DEBUG";
     private Context mContext;
-    private View rootLayout;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
     private RecyclerView recyclerView;
     private BookRecyclerViewAdapter rcAdapter;
-    public ProgressDialog progressDialog;
-    // Categories Ref
-    DatabaseReference CategoriesRef = FirebaseDatabase
-            .getInstance()
-            .getReference()
-            .child(Database.CATEGORIES);
 
     // Book Ref
     DatabaseReference BookRef = FirebaseDatabase
@@ -55,59 +55,41 @@ public class CategoryActivity extends AppCompatActivity {
 
     String userId;
     List<Book> Books = new ArrayList<>();
-    List<String> BookLoaded = new ArrayList<>();
+    private ProgressDialog progressDialog;
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_activity);
-
-        // Init recyclerview
-        initRecyclerView();
-
-        // Get user ID
-        userId = getUserId();
-        if (userId.equals(""))
-            return;
-
-        // User Ref
-        DatabaseReference UserRef = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(Database.USERS)
-                .child(userId)
-                .child("interesting");
-
+        setStatusBarTranslucent(true);
+        Intent intent = getIntent();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang tải dữ liệu...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
-        UserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String[] categories = getCategories(dataSnapshot.getValue().toString());
-                for (int i = 0; i < categories.length; i++) {
-//                    getBooks(categories[i]);
-
-                    if (i == categories.length - 1) {
-//                        loadOtherBooks();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        Category category = (Category) intent.getSerializableExtra("category");
+        // Init recyclerview
+        initRecyclerView();
+        Picasso.with(mContext)
+                .load(category.getBackgound())
+                .into((ImageView) findViewById(R.id.background));
+        TextView tvName = (TextView)findViewById(R.id.tvCategoryName);
+        TextView tvDesr = (TextView)findViewById(R.id.tvDescription);
+        tvName.setText(category.getName());
+        tvDesr.setText(category.getDesr());
+        getBooks(category.getId());
     }
-    public String[] getCategories(String intersting) {
-        Log.d("TAG", "Categories: " + intersting);
-        return intersting.split(",");
-    }
+
     private void initRecyclerView() {
-        recyclerView = (RecyclerView) rootLayout.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
@@ -121,9 +103,57 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new RecycleViewDecoration(spacingInPixels));
         recyclerView.setAdapter(rcAdapter);
     }
-    // Get user id
-    public String getUserId() {
-        SharedPreferences sp = mContext.getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
-        return sp.getString(Constants.UserID, "");
+
+    public void getBooks(final String category) {
+        DatabaseReference CategoriesRef = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Database.CATEGORIES)
+                .child(category)
+                .child(Database.BOOKS);
+
+        CategoriesRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // Hide dialog
+                progressDialog.dismiss();
+
+                // Duyet qua tat ca sach
+                for (DataSnapshot book : dataSnapshot.getChildren()) {
+                    String BookId = book.getValue().toString();
+                    Log.d(TAG, "Category: " + category + ", BookId: " + BookId);
+
+                    loadBookInfo(BookId);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
+    // Load book
+    private void loadBookInfo(String bookId) {
+
+        BookRef.child(bookId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Book book = dataSnapshot.getValue(Book.class);
+                Books.add(book);
+                rcAdapter.notifyDataSetChanged();
+
+                Log.d(TAG, book.getTitle());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

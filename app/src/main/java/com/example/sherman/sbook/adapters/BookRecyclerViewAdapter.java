@@ -42,10 +42,10 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
         holder.tvAuthor.setText(books.get(position).getAuthor());
         holder.tvRating.setText(books.get(position).getRating());
         holder.bookId = books.get(position).getId();
-
-        Picasso.with(mContext)
-                .load(books.get(position).getCoverUrl())
-                .into(holder.imvBookCover);
+        if (!books.get(position).getCoverUrl().equals(""))
+            Picasso.with(mContext)
+                    .load(books.get(position).getCoverUrl())
+                    .into(holder.imvBookCover);
     }
 
     @Override

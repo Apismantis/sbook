@@ -73,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
 
-<<<<<<< HEAD
         startService(new Intent(this, NotifyService.class));
-=======
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
->>>>>>> 102de145be494f110c2678dd391069dbc662c3bb
     }
 
     private void setupViewPager(ViewPager viewPager) {
