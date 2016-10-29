@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/thumbnail" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_marginTop="20dp"
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgBook">
-
+            <include layout="@layout/item_divider" />
             <LinearLayout
                 android:padding="@dimen/padding_detail"
                 android:orientation="vertical"
@@ -32,9 +33,12 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_author"/>
+                    android:text="@string/title_author"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_author"/>
+
 
                 <EditText
                     android:id="@+id/txtAuthor"
@@ -48,32 +52,18 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_publisher"/>
+                    android:text="@string/title_publisher"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_pub"/>
 
                 <EditText
-                    android:id="@+id/txtPublisher"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:padding="@dimen/padding_detail"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_tags"/>
-
-                <Spinner
-                    android:id="@+id/spiner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                        android:id="@+id/txtPublisher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -86,7 +76,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_book"
+                    android:textSize="16dp"
                     android:text="@string/title_title"/>
+
 
                 <EditText
                     android:id="@+id/txtTitle"
@@ -103,10 +96,32 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_interest"/>
+                    android:text="@string/title_interest"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_book"/>
 
                 <EditText
                     android:id="@+id/txtInterest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding_detail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_tags"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_catalog"/>
+
+                <Spinner
+                    android:id="@+id/spiner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -116,8 +131,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnSaveBook"
-                android:text="Save"/>
+                android:text="Save"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFFFF"/>
         </LinearLayout>
+
     </RelativeLayout>
 
     </ScrollView>

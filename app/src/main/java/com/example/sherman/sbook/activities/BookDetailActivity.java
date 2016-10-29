@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -89,7 +88,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getDataFromFirebase() {
-        bookRef = database.getReference(Database.BOOKS + bookId);
+        bookRef = database.getReference().child(Database.BOOKS).child(bookId);
         bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,7 +98,11 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                     getUserInfo(book.getOwner());
                     updateBookInfoUI();
                 } else {
-                    Toast.makeText(BookDetailActivity.this, "Cannot get book info", Toast.LENGTH_SHORT).show();
+                    if (loadingDialog.isShowing()) {
+                        loadingDialog.hide();
+                    }
+
+                    Toast.makeText(BookDetailActivity.this, R.string.error_when_load_book_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -123,7 +126,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getUserInfo(String userId) {
-        ownerRef = database.getReference(Database.USERS + userId);
+        ownerRef = database.getReference().child(Database.USERS).child(userId);
         ownerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -132,7 +135,11 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                 if (owner != null) {
                     updateUserInfoUI();
                 } else {
-                    Toast.makeText(BookDetailActivity.this, "Cannot get user info", Toast.LENGTH_SHORT).show();
+                    if (loadingDialog.isShowing()) {
+                        loadingDialog.hide();
+                    }
+
+                    Toast.makeText(BookDetailActivity.this, R.string.error_when_load_user_data, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -156,7 +163,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void updateUserInfoUI() {
         tvFullName.setText(owner.getFullName());
-        tvInteresting.setText(owner.getInteresting());
+        tvInteresting.setText(owner.getLocation());
         imageLoader.displayImage(owner.getAvatarUrl(), ivAvatar);
         btnCall.setOnClickListener(this);
 
@@ -164,7 +171,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
             loadingDialog.hide();
         }
     }
-
 
 
     @Override
@@ -181,18 +187,8 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + owner.getPhoneNumber()));
 
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-                return;
-            }
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+            return;
 
             startActivity(intent);
         }

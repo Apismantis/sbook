@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.example.sherman.sbook.fragments.HomeFragment;
+import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        startService(new Intent(this, NotifyService.class));
     }
 
     private void setupViewPager(ViewPager viewPager) {
