@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean checkValid() {
 
 
-        return false;
+        return true;
     }
 
     private void openMainActivity() {
