@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,29 +16,7 @@
             android:id="@+id/imgBook"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/colorPrimaryDark"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_marginTop="175dp"
-            android:padding="@dimen/padding_title"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right">
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:src="@android:drawable/ic_menu_camera"/>
-
-        </LinearLayout>
+            android:src="@drawable/thumbnail" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -43,8 +24,8 @@
             android:padding="@dimen/padding_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout">
-
+            android:layout_below="@+id/imgBook">
+            <include layout="@layout/item_divider" />
             <LinearLayout
                 android:padding="@dimen/padding_detail"
                 android:orientation="vertical"
@@ -52,9 +33,12 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_author"/>
+                    android:text="@string/title_author"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_author"/>
+
 
                 <EditText
                     android:id="@+id/txtAuthor"
@@ -68,31 +52,18 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_publisher"/>
-
-                <EditText
-                    android:id="@+id/txtPublisher"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:padding="@dimen/padding_detail"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_tags"/>
+                    android:text="@string/title_publisher"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_pub"/>
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                        android:id="@+id/txtPublisher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -105,14 +76,92 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_book"
+                    android:textSize="16dp"
                     android:text="@string/title_title"/>
+
 
                 <EditText
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding_detail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_interest"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_book"/>
+
+                <EditText
+                    android:id="@+id/txtInterest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding_detail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_tags"
+                    android:textSize="16dp"
+                    android:drawableLeft="@mipmap/ic_catalog"/>
+
+                <Spinner
+                    android:id="@+id/spiner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSaveBook"
+                android:text="Save"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFFFF"/>
         </LinearLayout>
+
     </RelativeLayout>
-</ScrollView>
+
+    </ScrollView>
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="175dp"
+        android:padding="@dimen/padding_title"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnGalley"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@android:drawable/ic_menu_gallery"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@android:drawable/ic_menu_camera"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</FrameLayout>

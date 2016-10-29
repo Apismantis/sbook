@@ -97,7 +97,6 @@ public class HomeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Lay tat ca loai sach nguoi dung quan tam
                 String[] categories = getCategories(dataSnapshot.getValue().toString());
-
                 // Lay thon tin sach
                 for (int i = 0; i < categories.length; i++) {
                     getBooks(categories[i]);

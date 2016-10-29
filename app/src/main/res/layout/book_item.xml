@@ -15,6 +15,7 @@
             android:id="@+id/imvBookCover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:adjustViewBounds="true"
             android:background="@drawable/imge_view_top_corner"
             android:minHeight="200dp"
@@ -73,7 +74,6 @@
                     android:layout_height="20dp"
                     android:src="@drawable/stars" />
             </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>

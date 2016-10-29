@@ -9,5 +9,6 @@
     <dimen name="h2">16sp</dimen>
     <dimen name="padding_title">5dp</dimen>
     <dimen name="padding_detail">12dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
     <dimen name="icon_width">20dp</dimen>
 </resources>
