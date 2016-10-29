@@ -67,8 +67,11 @@ public class NotificationFragment extends Fragment {
                 bookRef.child(bookId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        notificationBooks.add(0, dataSnapshot.getValue(Book.class));
-                        adapter.notifyDataSetChanged();
+                        Book b = dataSnapshot.getValue(Book.class);
+                        if (b != null) {
+                            notificationBooks.add(0, b);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
