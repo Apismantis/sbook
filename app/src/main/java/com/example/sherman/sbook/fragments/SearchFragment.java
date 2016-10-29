@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class SearchFragment extends Fragment {
     private Context mContext;
     private View rootLayout;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
     List<Book> Books = new ArrayList<>();
     List<String> BookLoaded = new ArrayList<>();
 
-    public HomeFragment() {
+    public SearchFragment() {
 
     }
 
@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
 
         progressDialog = new ProgressDialog(view.getContext());
         progressDialog.setMessage("Đang tải dữ liệu...");
-        progressDialog.setCancelable(false);
         progressDialog.show();
 
         UserRef.addListenerForSingleValueEvent(new ValueEventListener() {
