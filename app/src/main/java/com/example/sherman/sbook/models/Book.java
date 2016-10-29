@@ -12,10 +12,22 @@ public class Book {
     private String tags;
     private String publisher;
     private String rating;
+    private String interesting;
     private String id;
 
-    public Book() {
+    public Book(String title, String coverUrl, String author, String tags, String publisher, String inter, String owner) {
+        this.title = title;
+        this.coverUrl = coverUrl;
+        this.author = author;
+        this.interesting = inter;
+        this.tags = tags;
+        this.publisher = publisher;
+        this.owner = owner;
 
+
+    }
+
+    public Book() {
     }
 
     public Book(String title, String author) {
@@ -53,6 +65,10 @@ public class Book {
 
     public String getRating() {
         return rating;
+    }
+
+    public String getInteresting() {
+        return interesting;
     }
 
     public String getId() {

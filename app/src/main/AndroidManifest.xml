@@ -29,7 +29,9 @@
             android:theme="@style/FullScreen"/>
 
         <activity android:name=".activities.BookDetailActivity" />
-
+        <activity android:name=".activities.AddBookActivity"
+                  android:theme="@style/Theme.Light.ActionBar">
+        </activity>
         <service android:name=".services.NotifyService" android:exported="false" />
     </application>
 

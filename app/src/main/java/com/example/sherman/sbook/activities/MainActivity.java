@@ -2,6 +2,7 @@ package com.example.sherman.sbook.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,13 @@ import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import static android.support.design.R.styleable.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
     private ImageButton btnMenu, btnSearch, btnCloseSearch;
     private TextView tvAcitivityTitle;
     private AutoCompleteTextView atcBookTitle;
+    private FloatingActionButton fab;
 
     // Book title
     String[] bookTitle = {"Tony Buổi Sáng", "Yêu Em Từ Cái Nhìn Đầu Tiên", "7 Thói Quen Để Thành Đạt"};
@@ -69,7 +73,18 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
 
+<<<<<<< HEAD
         startService(new Intent(this, NotifyService.class));
+=======
+        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
+                startActivity(intent);
+            }
+        });
+>>>>>>> 102de145be494f110c2678dd391069dbc662c3bb
     }
 
     private void setupViewPager(ViewPager viewPager) {
