@@ -5,7 +5,7 @@ package com.example.sherman.sbook.constants;
  */
 
 public class Database {
-    public static final String USERS = "users/";
-    public static final String BOOKS = "books/";
-    public static final String CATEGORIES = "categories/";
+    public static final String USERS = "users";
+    public static final String BOOKS = "books";
+    public static final String CATEGORIES = "categories";
 }

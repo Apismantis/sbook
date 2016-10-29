@@ -1,6 +1,5 @@
 package com.example.sherman.sbook.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.example.sherman.sbook.fragments.BookCategoryFragment;
-import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
 
-        startService(new Intent(this, NotifyService.class));
     }
 
     private void setupViewPager(ViewPager viewPager) {
