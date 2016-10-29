@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,25 +13,34 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.adapters.PagerAdapter;
 import com.example.sherman.sbook.fragments.HomeFragment;
+import com.example.sherman.sbook.fragments.SearchFragment;
 import com.example.sherman.sbook.services.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import static android.support.design.R.styleable.FloatingActionButton;
-
 public class MainActivity extends AppCompatActivity {
     private ImageButton btnMenu, btnSearch, btnCloseSearch;
     private TextView tvAcitivityTitle;
-    private AutoCompleteTextView atcBookTitle;
+    public AutoCompleteTextView atcBookTitle;
+    private RelativeLayout homeFragment;
+    private TabLayout tabLayout;
     private FloatingActionButton fab;
 
     // Book title
-    String[] bookTitle = {"Tony Buổi Sáng", "Yêu Em Từ Cái Nhìn Đầu Tiên", "7 Thói Quen Để Thành Đạt"};
+    public String[] bookTitle = {
+            "Mộng Xưa Thành Cũ",
+            "Trên Đường Băng",
+            "Năng Lực Lãnh Đạo",
+            "Thám Tử Lừng Danh Conan",
+            "Đời Thay Đổi Khi Chúng Ta Đổi Thay",
+            "Đắc Nhân Tâm",
+            "Cho Tôi Xin Một Vé Đi Tuổi Thơ"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +54,21 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnSearch.setVisibility(View.GONE);
-                tvAcitivityTitle.setVisibility(View.GONE);
-                btnMenu.setVisibility(View.GONE);
+                btnSearch.setVisibility(RelativeLayout.GONE);
+                tvAcitivityTitle.setVisibility(RelativeLayout.GONE);
+                btnMenu.setVisibility(RelativeLayout.GONE);
                 btnCloseSearch.setVisibility(View.VISIBLE);
                 atcBookTitle.setVisibility(View.VISIBLE);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                homeFragment.setVisibility(View.VISIBLE);
+                tabLayout.setVisibility(View.GONE);
+
+                SearchFragment list_fragment = new SearchFragment();
+                fragmentTransaction.replace(R.id.homeFragment, list_fragment, list_fragment.toString() + "");
+                fragmentTransaction.commit();
             }
         });
 
@@ -60,6 +81,16 @@ public class MainActivity extends AppCompatActivity {
                 btnMenu.setVisibility(View.VISIBLE);
                 btnCloseSearch.setVisibility(View.GONE);
                 atcBookTitle.setVisibility(View.GONE);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                homeFragment.setVisibility(View.GONE);
+                tabLayout.setVisibility(View.VISIBLE);
+
+                SearchFragment list_fragment = new SearchFragment();
+                fragmentTransaction.replace(R.id.homeFragment, list_fragment, list_fragment.toString() + "");
+                fragmentTransaction.commit();
             }
         });
 
@@ -71,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton)findViewById(R.id.fabAddNewBook);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, bookTitle);
         atcBookTitle.setThreshold(1);
         atcBookTitle.setAdapter(adapter);
+        atcBookTitle.setDropDownBackgroundResource(R.drawable.dropdown_back);
+
+        // Home fragment
+        homeFragment = (RelativeLayout) findViewById(R.id.homeFragment);
+
+        // Init tablayout
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons(tabLayout);
     }
 
     @Override

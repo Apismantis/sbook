@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
+        // Hide keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -60,15 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private String getUser(String username, String password) {
         return "01vKuHSGJTV4Lx9sswhuWc30BC12";
-//        if (!username.equals("") && !password.equals("")) {
-//            if (username.equals("u1"))
-//                return "01vKuHSGJTV4Lx9sswhuWc30BC12";
-//            else if (username.equals("u2"))
-//                return "NDJah5ROVaRkrunxSQDaEX7h7Ph2";
-//            return "";
-//        }
-//
-//        return "";
     }
 
     private void openMainActivity() {

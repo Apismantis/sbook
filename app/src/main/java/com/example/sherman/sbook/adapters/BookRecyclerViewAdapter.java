@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,14 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
     public int getItemCount() {
         return this.books.size();
     }
+
+    public void changeData(List<Book> books) {
+        Log.d("TAG", "Change data...");
+        this.books.clear();
+        this.books.addAll(books);
+        //notifyDataSetChanged();
+        notifyItemRangeChanged(0, books.size());
+    }
 }
 
 class BookViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -80,4 +89,3 @@ class BookViewHolders extends RecyclerView.ViewHolder implements View.OnClickLis
         view.getContext().startActivity(bookDetailIntent);
     }
 }
-

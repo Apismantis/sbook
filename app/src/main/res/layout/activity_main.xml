@@ -64,6 +64,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
+                        android:paddingTop="4dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/close1"
                         android:visibility="gone" />
@@ -76,15 +77,20 @@
                         android:layout_marginRight="80dp"
                         android:hint="Nhập tên sách"
                         android:lines="1"
-                        android:popupTheme="@color/colorPrimaryDark"
                         android:textColor="@android:color/white"
-                        android:textColorHighlight="@color/colorAccent"
+                        android:textColorHighlight="@android:color/white"
                         android:textColorHint="@android:color/white"
                         android:visibility="gone" />
 
                 </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
+
+            <RelativeLayout
+                android:id="@+id/homeFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout"
@@ -103,14 +109,15 @@
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/fabAddNewBook"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_done" />
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/add" />
 
     </RelativeLayout>
 
