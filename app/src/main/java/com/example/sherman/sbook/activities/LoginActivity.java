@@ -18,8 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference UserRef;
     private EditText etUsername, etPassword;
     private Button btnLogin;
 
@@ -58,15 +56,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getUser(String username, String password) {
-        if (!username.equals("") && !password.equals("")) {
-            if (username.equals("testuser1"))
-                return "01vKuHSGJTV4Lx9sswhuWc30BC12";
-            else if (username.equals("testuser2"))
-                return "NDJah5ROVaRkrunxSQDaEX7h7Ph2";
-            return "";
-        }
+        return "01vKuHSGJTV4Lx9sswhuWc30BC12";
 
-        return "";
+//        if (!username.equals("") && !password.equals("") && password.equals("123456")) {
+//            if (username.equals("testuser1"))
+//                return "01vKuHSGJTV4Lx9sswhuWc30BC12";
+//            else if (username.equals("testuser2"))
+//                return "NDJah5ROVaRkrunxSQDaEX7h7Ph2";
+//            return "";
+//        }
+//
+//        return "";
     }
 
     private void openMainActivity() {
