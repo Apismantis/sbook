@@ -19,8 +19,8 @@ public class BookViewHolders extends RecyclerView.ViewHolder implements View.OnC
     public BookViewHolders(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
-        countryName = (TextView) itemView.findViewById(R.id.country_name);
-        countryPhoto = (ImageView) itemView.findViewById(R.id.country_photo);
+        countryName = (TextView) itemView.findViewById(R.id.book_name);
+        countryPhoto = (ImageView) itemView.findViewById(R.id.book_photo);
     }
 
     @Override

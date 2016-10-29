@@ -1,5 +1,7 @@
 package com.example.sherman.sbook.activities;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +9,12 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.sherman.sbook.BookItem;
+import com.example.sherman.sbook.Book;
 import com.example.sherman.sbook.adapters.BookRecyclerViewAdapter;
 import com.example.sherman.sbook.R;
+import com.example.sherman.sbook.adapters.PagerAdapter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +27,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content);
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        setContentView(R.layout.activity_main);
+//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+//        recyclerView.setHasFixedSize(true);
+//
+//        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+//        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
+//
+//        List<Book> gaggeredList = getListItemData();
+//
+//        BookRecyclerViewAdapter rcAdapter = new BookRecyclerViewAdapter(MainActivity.this, gaggeredList);
+//        recyclerView.setAdapter(rcAdapter);
+        initImageLoader();
 
-        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
-        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
-        List<BookItem> gaggeredList = getListItemData();
-
-        BookRecyclerViewAdapter rcAdapter = new BookRecyclerViewAdapter(MainActivity.this, gaggeredList);
-        recyclerView.setAdapter(rcAdapter);
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+//        Intent intent = new Intent(this, BookDetailActivity.class);
+//        intent.putExtra(Constants.bookId, "hp04J1ddxsgpfVscwqpzM2Kz48r2");
+//        startActivity(intent);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,33 +67,38 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<BookItem> getListItemData(){
-        List<BookItem> listViewItems = new ArrayList<BookItem>();
-        listViewItems.add(new BookItem("Alkane", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ethane", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Alkyne", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Benzene", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Amide", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Amino Acid", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Phenol", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Carbonxylic", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Nitril", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ether", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ester", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Alcohol", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Alkane", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ethane", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Alkyne", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Benzene", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Amide", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Amino Acid", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Phenol", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Carbonxylic", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Nitril", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ether", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Ester", R.mipmap.ic_launcher));
-        listViewItems.add(new BookItem("Alcohol", R.mipmap.ic_launcher));
-
+    private List<Book> getListItemData(){
+        List<Book> listViewItems = new ArrayList<Book>();
+        listViewItems.add(new Book("Alkane", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ethane", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Alkyne", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Benzene", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Amide", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Amino Acid", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Phenol", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Carbonxylic", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Nitril", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ether", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ester", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Alcohol", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Alkane", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ethane", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Alkyne", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Benzene", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Amide", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Amino Acid", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Phenol", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Carbonxylic", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Nitril", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ether", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Ester", R.mipmap.ic_launcher));
+        listViewItems.add(new Book("Alcohol", R.mipmap.ic_launcher));
         return listViewItems;
+    }
+
+    private void initImageLoader() {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+        .build();
+        ImageLoader.getInstance().init(config);
     }
 }

@@ -3,10 +3,10 @@ package com.example.sherman.sbook;
 /**
  * Created by Sherman on 10/29/2016.
  */
-public class BookItem {
+public class Book {
     private String name;
 
-    public BookItem(String name, int photo) {
+    public Book(String name, int photo) {
         this.name = name;
         this.photo = photo;
     }

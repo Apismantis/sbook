@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sherman.sbook.BookItem;
+import com.example.sherman.sbook.Book;
 import com.example.sherman.sbook.activities.BookViewHolders;
 import com.example.sherman.sbook.R;
 
@@ -17,10 +17,10 @@ import java.util.List;
  */
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolders> {
-    private List<BookItem> itemList;
+    private List<Book> itemList;
     private Context context;
 
-    public BookRecyclerViewAdapter(Context context, List<BookItem> itemList) {
+    public BookRecyclerViewAdapter(Context context, List<Book> itemList) {
         this.itemList = itemList;
         this.context = context;
     }

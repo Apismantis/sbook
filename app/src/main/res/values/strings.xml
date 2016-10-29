@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Sbook</string>
     <string name="action_settings">setting</string>
+    <string name="contact_this_friend">Liên hệ đổi sách</string>
+    <string name="nav_item_attachment">Attachment</string>
+    <string name="nav_item_images">Images</string>
+    <string name="nav_item_location">Location</string>
+    <string name="nav_sub_menu_item01">menu_item01</string>
+    <string name="nav_sub_menu_item02">menu_item02</string>
+    <string name="nav_sub_menu">Sub menu</string>
+    <string name="drawer_header_text">Drawer header</string>
 </resources>
