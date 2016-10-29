@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">BookHub</string>
     <string name="contact_this_friend">Liên hệ đổi sách</string>
+    <string name="view_now">Xem ngay</string>
+    <string name="ignore">Bỏ Qua</string>
+    <string name="had_just_been_added"> mới được thêm vào Book Hub. Click để xem ngay.</string>
     <string name="nav_item_attachment">Attachment</string>
     <string name="nav_item_images">Images</string>
     <string name="nav_item_location">Location</string>
@@ -14,4 +17,6 @@
     <string name="title_publisher">Nhà xuất bản</string>
     <string name="title_tags">Thể loại</string>
     <string name="title_title">Tên sách</string>
+    <string name="please_wait">Vui lòng chờ giây lát...</string>
+    <string name="loading_data">Đang tải dữ liệu</string>
 </resources>

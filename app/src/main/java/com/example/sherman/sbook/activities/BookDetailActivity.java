@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     private TextView tvFullName;
     private TextView tvInteresting;
 
-    private Button btnCall;
+    private RelativeLayout btnCall;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference bookRef;
@@ -68,8 +70,9 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
 
     private void showLoadingDialog() {
         loadingDialog = new ProgressDialog(this);
-        loadingDialog.setTitle("Loading book data");
-        loadingDialog.setMessage("Please wait! Just a moment...");
+        loadingDialog.setTitle(getString(R.string.loading_data));
+        loadingDialog.hid
+        loadingDialog.setMessage(getString(R.string.please_wait));
         loadingDialog.setCancelable(false);
         loadingDialog.show();
     }
@@ -84,7 +87,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
         tvFullName = (TextView) findViewById(R.id.tvUserFullname);
         tvInteresting = (TextView) findViewById(R.id.tvUserInteresting);
 
-        btnCall = (Button) findViewById(R.id.btnCall);
+        btnCall = (RelativeLayout) findViewById(R.id.rlContactOwner);
     }
 
     private void getDataFromFirebase() {
@@ -142,6 +145,17 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void updateUserInfoUI() {
         tvFullName.setText(owner.getFullName());
         tvInteresting.setText(owner.getInteresting());
@@ -158,7 +172,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnCall:
+            case R.id.rlContactOwner:
                 callOwner();
                 break;
         }

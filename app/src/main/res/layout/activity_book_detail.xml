@@ -4,82 +4,159 @@
     android:id="@+id/activity_book_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.example.sherman.sbook.activities.BookDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/ivBookCover"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/book_cover_height"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:padding="16dp"
             android:scaleType="fitCenter"
             tools:src="@drawable/harry_potter" />
 
-        <TextView
-            android:id="@+id/tvBookTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ivBookCover"
-            android:padding="@dimen/padding_title"
-            android:textSize="@dimen/h1"
-            android:textStyle="bold"
-            tools:text="Harry Potter" />
-
-        <TextView
-            android:id="@+id/tvAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBookTitle"
-            android:textStyle="bold"
-            tools:text="J.K Rowking" />
-
-        <TextView
-            android:id="@+id/tvPublisher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBookTitle"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/tvAuthor"
-            tools:text="NXB Tre" />
-
         <RelativeLayout
-            android:id="@+id/rlUserInfo"
+            android:id="@+id/rlBook"
+            android:padding="10dp"
+            android:background="@drawable/section_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvAuthor">
-
-            <ImageView
-                android:id="@+id/ivAvatar"
-                android:layout_width="@dimen/avatar_width"
-                android:layout_height="@dimen/avatar_height" />
+            android:layout_below="@id/ivBookCover">
 
             <TextView
-                android:id="@+id/tvUserFullname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/ivAvatar"
-                android:textSize="@dimen/h2"
-                android:textStyle="bold"
-                tools:text="Ke Nguyen" />
-
-            <TextView
-                android:id="@+id/tvUserInteresting"
+                android:id="@+id/tvBookTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvUserFullname"
-                android:layout_toRightOf="@id/ivAvatar"
-                tools:text="#thien van hoc, truyen tinh cam, truyen ngon tinh, van hoa phuong tay, lich su the gioi" />
+                android:gravity="center"
+
+                android:padding="@dimen/padding_title"
+                android:textSize="@dimen/h1"
+                android:textStyle="bold"
+                tools:text="Harry Potter" />
+
+            <RelativeLayout
+                android:id="@+id/rlBookInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBookTitle"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivAuthorIcon"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width"
+                    android:src="@drawable/author_blue" />
+
+                <TextView
+                    android:id="@+id/tvAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ivAuthorIcon"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    tools:text="J.K Rowking" />
+
+                <ImageView
+                    android:id="@+id/ivPublisherIcon"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/tvAuthor"
+                    android:src="@drawable/publisher" />
+
+                <TextView
+                    android:id="@+id/tvPublisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ivPublisherIcon"
+                    tools:text="NXB Tre" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btnCall"
+        <RelativeLayout
+            android:id="@+id/rlUser"
+            android:background="@drawable/section_background"
+            android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlUserInfo"
-            android:text="@string/contact_this_friend" />
+            android:layout_below="@+id/rlBook">
+
+            <RelativeLayout
+                android:id="@+id/rlUserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/avatar_width"
+                    android:layout_height="@dimen/avatar_height"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    tools:src="@drawable/avatar" />
+
+                <TextView
+                    android:id="@+id/tvUserFullname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ivAvatar"
+                    android:textSize="@dimen/h2"
+                    android:textStyle="bold"
+                    tools:text="Ke Nguyen" />
+
+                <TextView
+                    android:id="@+id/tvUserInteresting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvUserFullname"
+                    android:layout_toRightOf="@id/ivAvatar"
+                    tools:text="#thien van hoc, truyen tinh cam, truyen ngon tinh, van hoa phuong tay, lich su the gioi" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlContactOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlUserInfo"
+                android:background="@drawable/border_button"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivCall"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width"
+                    android:src="@drawable/call" />
+
+                <TextView
+                    android:id="@+id/tvCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/ivCall"
+                    android:text="@string/contact_this_friend"
+                    android:textColor="@android:color/white" />
+                <!--<Button-->
+                <!--android:id="@+id/btnCall"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/rlUserInfo"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="@string/contact_this_friend" />-->
+
+            </RelativeLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
