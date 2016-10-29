@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Sbook</string>
+    <string name="app_name">Book Hub</string>
+    <string name="contact_this_friend">Liên hệ đổi sách</string>
 </resources>
