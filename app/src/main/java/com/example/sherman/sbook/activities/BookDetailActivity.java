@@ -106,7 +106,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                     updateBookInfoUI();
                 } else {
                     if (loadingDialog.isShowing()) {
-                        loadingDialog.hide();
+                        loadingDialog.dismiss();
                     }
 
                     Toast.makeText(BookDetailActivity.this, R.string.error_when_load_book_data, Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                     updateUserInfoUI();
                 } else {
                     if (loadingDialog.isShowing()) {
-                        loadingDialog.hide();
+                        loadingDialog.dismiss();
                     }
 
                     Toast.makeText(BookDetailActivity.this, R.string.error_when_load_user_data, Toast.LENGTH_SHORT).show();
@@ -175,7 +175,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
         btnCall.setOnClickListener(this);
 
         if (loadingDialog.isShowing()) {
-            loadingDialog.hide();
+            loadingDialog.dismiss();
         }
     }
 

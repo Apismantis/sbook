@@ -55,6 +55,7 @@ public class NotificationFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvNotifications = (RecyclerView) view.findViewById(R.id.rvNotification);
+        notificationBooks.clear();
         adapter = new NotificationAdapter(getActivity(), notificationBooks);
         rvNotifications.setAdapter(adapter);
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
