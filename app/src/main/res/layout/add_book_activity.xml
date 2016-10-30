@@ -79,8 +79,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginTop="175dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="58dp"
+        android:layout_marginRight="8dp"
         android:gravity="right"
         android:orientation="horizontal"
         android:padding="@dimen/padding_title">
