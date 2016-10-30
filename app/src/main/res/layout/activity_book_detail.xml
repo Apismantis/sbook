@@ -22,11 +22,11 @@
 
         <RelativeLayout
             android:id="@+id/rlBook"
+            android:padding="10dp"
+            android:background="@drawable/section_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivBookCover"
-            android:background="@drawable/section_background"
-            android:padding="10dp">
+            android:layout_below="@id/ivBookCover">
 
             <TextView
                 android:id="@+id/tvBookTitle"
@@ -56,7 +56,6 @@
                     android:id="@+id/tvAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/ivAuthorIcon"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -74,9 +73,7 @@
                     android:id="@+id/tvPublisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/ivPublisherIcon"
-                    android:gravity="center"
                     tools:text="NXB Tre" />
             </RelativeLayout>
 
@@ -84,16 +81,17 @@
 
         <RelativeLayout
             android:id="@+id/rlUser"
+            android:background="@drawable/section_background"
+            android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlBook"
-            android:background="@drawable/section_background"
-            android:padding="20dp">
+            android:layout_below="@+id/rlBook">
 
             <RelativeLayout
                 android:id="@+id/rlUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:gravity="center"
                 android:padding="5dp">
 
@@ -109,7 +107,6 @@
                     android:id="@+id/tvUserFullname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/ivAvatar"
                     android:textSize="@dimen/h2"
                     android:textStyle="bold"
@@ -120,7 +117,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvUserFullname"
-                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/ivAvatar"
                     tools:text="#thien van hoc, truyen tinh cam, truyen ngon tinh, van hoa phuong tay, lich su the gioi" />
             </RelativeLayout>
@@ -130,10 +126,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rlUserInfo"
-                android:layout_margin="4dp"
                 android:background="@drawable/border_button"
                 android:gravity="center"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivCall"
@@ -145,10 +140,20 @@
                     android:id="@+id/tvCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/ivCall"
                     android:text="@string/contact_this_friend"
                     android:textColor="@android:color/white" />
+                <!--<Button-->
+                <!--android:id="@+id/btnCall"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/rlUserInfo"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="@string/contact_this_friend" />-->
 
             </RelativeLayout>
         </RelativeLayout>

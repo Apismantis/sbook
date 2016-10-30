@@ -55,6 +55,7 @@ public class NotificationFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvNotifications = (RecyclerView) view.findViewById(R.id.rvNotification);
+        notificationBooks.clear();
         adapter = new NotificationAdapter(getActivity(), notificationBooks);
         rvNotifications.setAdapter(adapter);
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -67,8 +68,11 @@ public class NotificationFragment extends Fragment {
                 bookRef.child(bookId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        notificationBooks.add(0, dataSnapshot.getValue(Book.class));
-                        adapter.notifyDataSetChanged();
+                        Book b = dataSnapshot.getValue(Book.class);
+                        if (b != null) {
+                            notificationBooks.add(b);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override

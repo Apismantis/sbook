@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         startService(new Intent(this, NotifyService.class));
     }
 
