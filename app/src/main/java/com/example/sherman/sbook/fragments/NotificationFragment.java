@@ -70,7 +70,7 @@ public class NotificationFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Book b = dataSnapshot.getValue(Book.class);
                         if (b != null) {
-                            notificationBooks.add(0, b);
+                            notificationBooks.add(b);
                             adapter.notifyDataSetChanged();
                         }
                     }

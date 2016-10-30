@@ -46,6 +46,8 @@ public class NotifyService extends IntentService {
     ArrayList<String> currentInterestingBook = new ArrayList<>();
     private String userId;
 
+    private boolean hasInterest = false;
+    private boolean requestSent = false;
 
     public NotifyService() {
         super("Notify new book service");
@@ -57,11 +59,20 @@ public class NotifyService extends IntentService {
 
         getUserId();
 
+    }
 
+    @Override
+    protected void onHandleIntent(Intent intent) {
         interestingRef.child(userId).child("interests").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 currentInterestingBook.add(dataSnapshot.getValue().toString());
+                Log.d(TAG, "onChildAdded: INTEREST " + dataSnapshot.getValue().toString());
+                hasInterest = true;
+                if (hasInterest && !requestSent) {
+                    getBookData();
+                    requestSent = true;
+                }
             }
 
             @Override
@@ -84,15 +95,16 @@ public class NotifyService extends IntentService {
 
             }
         });
+
+
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-
+    private void getBookData() {
         bookRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final Book newBook = dataSnapshot.getValue(Book.class);
+                Log.d(TAG, "onChildAdded: " + "NEw BOOK");
 
                 if (newBook != null) {
                     newBook.setId(dataSnapshot.getKey());
@@ -130,6 +142,8 @@ public class NotifyService extends IntentService {
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            Log.d(TAG, "onDataChange: " + dataSnapshot.toString());
 
                             if (dataSnapshot.getValue() == null) {
                                 notificationRef.child(userId)
