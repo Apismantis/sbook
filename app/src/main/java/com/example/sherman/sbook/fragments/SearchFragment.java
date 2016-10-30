@@ -152,6 +152,7 @@ public class SearchFragment extends Fragment {
 
                 Log.d(TAG, "Search result size: " + SearchResult.size());
                 rcAdapter.changeData(SearchResult);
+                rcAdapter.notifyDataSetChanged();
             }
         });
 
@@ -165,6 +166,8 @@ public class SearchFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
                     rcAdapter.changeData(Books);
+                    rcAdapter.notifyDataSetChanged();
+
                 }
             }
 

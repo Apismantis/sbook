@@ -38,13 +38,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#85000000"/>
+                    android:background="#85000000" />
 
                 <TextView
                     android:id="@+id/tvCategoryName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:paddingBottom="20dp"
                     android:text="Tinh cam"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
@@ -55,7 +56,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvCategoryName"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="-20dp"
+                    android:gravity="center"
+                    android:maxLines="2"
                     android:text="Tinh cam"
                     android:textColor="@android:color/white" />
 
@@ -65,7 +71,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
                 app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -77,7 +82,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp"
+        android:layout_margin="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.sherman.collapsingtoolbarlayout.ScrollingActivity">
 

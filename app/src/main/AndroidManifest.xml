@@ -10,9 +10,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/FullScreen">
@@ -22,18 +22,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity" android:theme="@style/NoActionbar" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/NoActionbar" />
 
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/FullScreen"/>
-        <activity android:name=".activities.CategoryActivity"
-            android:theme="@style/NoActionbar"/>
+            android:theme="@style/FullScreen" />
+        <activity
+            android:name=".activities.CategoryActivity"
+            android:theme="@style/NoActionbar" />
         <activity android:name=".activities.BookDetailActivity" />
-        <activity android:name=".activities.AddBookActivity"
-                  android:theme="@style/Theme.Light.ActionBar">
-        </activity>
-        <service android:name=".services.NotifyService" android:exported="false" />
+        <activity
+            android:name=".activities.AddBookActivity"
+            android:label="Đăng sách cần đổi"
+            android:theme="@style/AppTheme"/>
+
+        <service
+            android:name=".services.NotifyService"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -4,14 +4,17 @@
     android:id="@+id/rlNotification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="4dp"
+    android:background="@drawable/noti_back"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/ivBookCover"
-        android:padding="5dp"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:padding="5dp"
         android:scaleType="fitCenter"
         android:src="@drawable/harry_potter" />
 
@@ -26,6 +29,7 @@
             android:id="@+id/tvBookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Toi thay hoa vang tren co xanh" />
@@ -35,15 +39,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvBookTitle"
-            android:textStyle="bold"
+            android:textColor="@color/colorSecondaryText"
             tools:text="Nguyen Nhat Anh" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/tvBookAuthor"
-            android:gravity="right"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="12sp"
             android:textStyle="italic"
             tools:text="2 ngay truoc" />
 

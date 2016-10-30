@@ -78,7 +78,9 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage(getString(R.string.please_wait));
         loadingDialog.setCancelable(false);
-        loadingDialog.show();
+
+        if (loadingDialog != null && !loadingDialog.isShowing())
+            loadingDialog.show();
     }
 
     private void setupViews() {
@@ -195,7 +197,7 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
             intent.setData(Uri.parse("tel:" + owner.getPhoneNumber()));
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
-            return;
+                return;
 
             startActivity(intent);
         }

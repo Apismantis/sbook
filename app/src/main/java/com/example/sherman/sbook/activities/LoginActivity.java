@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,13 +16,11 @@ import android.widget.Toast;
 
 import com.example.sherman.sbook.R;
 import com.example.sherman.sbook.constants.Constants;
+import com.google.firebase.auth.TwitterAuthCredential;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference UserRef;
     private EditText etUsername, etPassword;
     private Button btnLogin;
 
@@ -29,6 +28,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
+        if (isLoggin())
+            openMainActivity();
 
         // Hide keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -40,9 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                    login();
             }
         });
+    }
+
+    public boolean isLoggin() {
+        SharedPreferences sp = getSharedPreferences(Constants.RefName, Context.MODE_PRIVATE);
+        String userId = sp.getString(Constants.UserID, "");
+
+        if (!userId.equals(""))
+            return true;
+
+        return false;
     }
 
     private void login() {
