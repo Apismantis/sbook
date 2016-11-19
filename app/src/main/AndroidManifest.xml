@@ -18,14 +18,13 @@
             android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/NoActionbar" />
-
         <activity
             android:name=".activities.LoginActivity"
             android:theme="@style/FullScreen" />
@@ -35,12 +34,16 @@
         <activity android:name=".activities.BookDetailActivity" />
         <activity
             android:name=".activities.AddBookActivity"
-            android:label="Đăng sách cần đổi"
-            android:theme="@style/AppTheme"/>
+            android:label="@string/post_book_to_exchange"
+            android:theme="@style/AppTheme" />
 
         <service
             android:name=".services.NotifyService"
             android:exported="false" />
+
+        <activity android:name=".activities.AddActivity">
+
+        </activity>
     </application>
 
 </manifest>

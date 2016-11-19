@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.example.sherman.sbook.fragments.HomeFragment;
 import com.example.sherman.sbook.fragments.NotificationFragment;
 import com.example.sherman.sbook.fragments.SearchFragment;
 import com.example.sherman.sbook.services.NotifyService;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -50,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
             "Đắc Nhân Tâm",
             "Cho Tôi Xin Một Vé Đi Tuổi Thơ"};
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get fcm token
+        Log.d(TAG, "onCreate: " + FirebaseInstanceId.getInstance().getToken());
 
         // Init view
         initView();

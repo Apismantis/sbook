@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BookHub</string>
+    <string name="app_name">Book Hub</string>
     <string name="contact_this_friend">Liên hệ đổi sách</string>
     <string name="view_now">Xem ngay</string>
     <string name="ignore">Bỏ Qua</string>
@@ -22,4 +22,13 @@
     <string name="loading_data">Đang tải dữ liệu</string>
     <string name="error_when_load_book_data">Có lỗi xảy ra khi tải thông tin sách.</string>
     <string name="error_when_load_user_data">Có lỗi xảy ra khi tải thông tin người dùng.</string>
+    <string name="book_title">Tên sách</string>
+    <string name="book_title_sample">Tâm lý học tội phạm</string>
+    <string name="author">Tác giả</string>
+    <string name="author_sample">Nguyễn Nhật Ánh</string>
+    <string name="add_wanted_book">Săn</string>
+    <string name="ic_book">&#xf02d;</string>
+    <string name="ic_author">&#xf2be;</string>
+    <string name="invalid_book_info">Thông tin sách không hợp lệ.</string>
+    <string name="post_book_to_exchange">Đăng sách cần đổi</string>
 </resources>

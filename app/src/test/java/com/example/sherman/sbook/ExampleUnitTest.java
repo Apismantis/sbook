@@ -2,6 +2,7 @@ package com.example.sherman.sbook;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
